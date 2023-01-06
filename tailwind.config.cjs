@@ -7,19 +7,21 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        typing: "typing 5s steps(4, end), blink .75s step-end infinite",
+        typewriter:
+          "typewriter 2s steps(9) infinite, blink 0.5s steps(9) infinite",
       },
       keyframes: {
-        typing: {
-          "0%": { width: "0%" },
-          "100%": { width: "100%" },
+        typewriter: {
+          "40%": { left: "100%" },
+          "60%": { left: "100%" },
+          "100%": { left: "0%" },
         },
         blink: {
-          "0%, 100%": {
-            "border-color": "transparent",
+          "0%": {
+            "border-left": " solid 5px  #EDDE5D",
           },
-          "50%": {
-            "border-color": "orange",
+          "100%": {
+            "border-left": "solid 5px  transparent",
           },
         },
       },
