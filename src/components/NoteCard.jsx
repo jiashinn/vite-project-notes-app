@@ -9,7 +9,6 @@ const NoteCard = ({ tag, onDelete, data, refreshPage }) => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setEditData((prev) => ({ ...prev, [name]: value }));
-
     const idx = savedData.findIndex((item) => item.id === data.id);
     // use if else condition to solve 'title','text' undefined error
     if (savedData[idx]) {
@@ -21,7 +20,7 @@ const NoteCard = ({ tag, onDelete, data, refreshPage }) => {
       };
     }
 
-    savedData[idx][name] = value;
+    // savedData[idx][name] = value;
 
     localStorage.setItem("notes-app-data", JSON.stringify(savedData));
   };

@@ -1,12 +1,12 @@
 import { useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
+
 const NoteForm = ({ onCreate }) => {
   const [isVisible, setIsVisible] = useState(true);
   const [note, setNote] = useState({
     title: "",
     text: "",
-    createdTime: Date.now(),
   });
 
   const handleChange = (event) => {
@@ -23,16 +23,11 @@ const NoteForm = ({ onCreate }) => {
       className="grid gap-4 mb-9"
       onSubmit={(event) => {
         event.preventDefault();
-        setNote((prev) => ({
-          ...prev,
-          createdTime: Date.now(),
-        }));
         onCreate && onCreate(note);
         setNote({
           title: "",
           text: "",
         });
-        console.log(note);
       }}
     >
       <Input

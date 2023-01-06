@@ -1,10 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
 import HeaderSection from "../components/HeaderSection";
 import NoteForm from "../components/NoteForm";
-import NoteFormSection from "../components/NoteFormSection";
 import NoteList from "../components/NoteList";
-import { ThemeProvider } from "flowbite-react/lib/esm/components/Flowbite/ThemeContext";
 
 const Homepage = () => {
   const [notes, setNotes] = useState(() => {
@@ -26,7 +24,8 @@ const Homepage = () => {
   };
 
   const addNotes = (note) => {
-    setNotes([...notes, { id: nanoid(), ...note }]);
+    setNotes([...notes, { id: nanoid(), ...note, createdTime: Date.now() }]);
+    console.log(notes);
   };
 
   const handleDelete = (id) => {
@@ -34,9 +33,6 @@ const Homepage = () => {
     setNotes(newNotes);
     localStorage.setItem("notes-app-data", JSON.stringify(notes));
   };
-  // const handlePinned = () => {
-  //   setNotes(JSON.parse(localStorage.getItem("notes-app-data")));
-  // };
 
   const refreshPage = () => {
     setNotes(JSON.parse(localStorage.getItem("notes-app-data")));
