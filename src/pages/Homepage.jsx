@@ -6,9 +6,8 @@ import NoteList from "../components/NoteList";
 
 const Homepage = () => {
   const [notes, setNotes] = useState(() => {
-    const saved = localStorage.getItem("notes-app-data");
-    const initialValue = JSON.parse(saved);
-    return initialValue || [];
+    const saved = JSON.parse(localStorage.getItem("notes-app-data"));
+    return saved || [];
   });
 
   useEffect(() => {
@@ -24,8 +23,13 @@ const Homepage = () => {
   };
 
   const addNotes = (note) => {
-    setNotes([...notes, { id: nanoid(), ...note, createdTime: Date.now() }]);
-    console.log(notes);
+    const newNote = {
+      id: nanoid(),
+      ...note,
+      timestamp: Date.now(),
+      pin: false,
+    };
+    setNotes([...notes, newNote]);
   };
 
   const handleDelete = (id) => {
@@ -34,8 +38,35 @@ const Homepage = () => {
     localStorage.setItem("notes-app-data", JSON.stringify(notes));
   };
 
-  const refreshPage = () => {
-    setNotes(JSON.parse(localStorage.getItem("notes-app-data")));
+  const handlePinned = (id) => {
+    const idx = notes.findIndex((item) => item.id === id);
+    const newNotes = [
+      notes[idx],
+      ...notes.slice(0, idx),
+      ...notes.slice(idx + 1),
+    ];
+
+    // newNotes[idx]["pin"] = true;
+    const finalNotes = newNotes.map((note) =>
+      note.id === id ? { ...note, pin: true } : note
+    );
+    console.log(finalNotes);
+    setNotes(finalNotes, "pin");
+    localStorage.setItem("notes-app-data", JSON.stringify(notes));
+  };
+
+  const handleUnpinned = (id) => {
+    const newNotes = notes.map((note) =>
+      note.id === id ? { ...note, pin: false } : note
+    );
+    const pinnedNotes = newNotes.filter((note) => note.pin === true);
+    const unpinnedNotes = newNotes
+      .filter((note) => note.pin === false)
+      .sort((a, b) => a.timestamp - b.timestamp);
+    const finalNotes = pinnedNotes.concat(unpinnedNotes);
+    setNotes(finalNotes);
+    localStorage.setItem("notes-app-data", JSON.stringify(notes));
+    console.log(finalNotes, "unpin");
   };
 
   return (
@@ -51,7 +82,8 @@ const Homepage = () => {
         <NoteList
           notes={notes}
           handleDelete={handleDelete}
-          refreshPage={refreshPage}
+          handlePinned={handlePinned}
+          handleUnpinned={handleUnpinned}
         />
       ) : (
         <NoteList
@@ -59,6 +91,8 @@ const Homepage = () => {
             note.text.toLowerCase().includes(searchValue)
           )}
           handleDelete={handleDelete}
+          handlePinned={handlePinned}
+          handleUnpinned={handleUnpinned}
         />
       )}
     </>

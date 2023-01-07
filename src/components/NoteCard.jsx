@@ -1,11 +1,21 @@
-import { text } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMapPin } from "@fortawesome/free-solid-svg-icons";
 import { Card, Dropdown } from "flowbite-react";
 import { useState } from "react";
+import style from "./NoteCard.module.css";
 
-const NoteCard = ({ tag, onDelete, data, refreshPage }) => {
+const NoteCard = ({
+  tag,
+  onDelete,
+  note,
+  onHandlePinned,
+  onHandleUnpinned,
+  pinIcon,
+}) => {
   const savedData = JSON.parse(localStorage.getItem("notes-app-data")) || [];
-  const [editData, setEditData] = useState(data);
+  const [editData, setEditData] = useState(note);
   const [pinned, setPinned] = useState(false);
+  const [pinnedIcon, setPinnedIcon] = useState(pinIcon);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setEditData((prev) => ({ ...prev, [name]: value }));
@@ -24,31 +34,40 @@ const NoteCard = ({ tag, onDelete, data, refreshPage }) => {
 
     localStorage.setItem("notes-app-data", JSON.stringify(savedData));
   };
-  const handlePinned = () => {
+  const onPinned = () => {
     setPinned((prev) => !prev);
-    const idx = savedData.findIndex((item) => item.id === data.id);
-    const newData = [
-      savedData[idx],
-      ...savedData.slice(0, idx),
-      ...savedData.slice(idx + 1),
-    ];
-    localStorage.setItem("notes-app-data", JSON.stringify(newData));
-    refreshPage && refreshPage();
+    onHandlePinned && onHandlePinned();
+  };
+
+  const onUnpinned = () => {
+    setPinned((prev) => !prev);
+    onHandleUnpinned && onHandleUnpinned();
   };
 
   return (
     <>
       <Card className="max-w-sm">
-        <div className="flex justify-end px-4 pt-4">
+        {/* {pinIcon && <FontAwesomeIcon icon={faMapPin} />} */}
+        <div className={style.dropdownMenu}>
           <Dropdown inline={true} label="">
             <Dropdown.Item>
-              <a
-                href="#"
-                onClick={handlePinned}
-                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                {pinned ? "Unpin" : "Pin"}
-              </a>
+              {!pinned ? (
+                <a
+                  href="#"
+                  onClick={onPinned}
+                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Pin
+                </a>
+              ) : (
+                <a
+                  href="#"
+                  onClick={onUnpinned}
+                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Unpin
+                </a>
+              )}
             </Dropdown.Item>
             <Dropdown.Item>
               <a

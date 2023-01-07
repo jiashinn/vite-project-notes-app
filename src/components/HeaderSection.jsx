@@ -10,7 +10,7 @@ const HeaderSection = ({ onSearch }) => {
 
   return (
     <header className={style.header}>
-      <h1 className={style.dynamicText}>Note Apps</h1>
+      <h1 className={style.dynamicText}>Note App</h1>
 
       <div className="relative">
         <input

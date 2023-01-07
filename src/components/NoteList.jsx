@@ -1,13 +1,13 @@
 import { useState } from "react";
 import NoteCard from "./NoteCard";
 
-const NoteList = ({ notes, handleDelete, refreshPage }) => {
+const NoteList = ({ notes, handleDelete, handlePinned, handleUnpinned }) => {
   return (
     <>
       {notes.map((note) => {
         return (
           <NoteCard
-            data={note}
+            note={note}
             key={note.id}
             title={note.title}
             id={note.id}
@@ -15,9 +15,13 @@ const NoteList = ({ notes, handleDelete, refreshPage }) => {
             onDelete={() => {
               handleDelete && handleDelete(note.id);
             }}
-            refreshPage={() => {
-              refreshPage && refreshPage();
+            onHandlePinned={() => {
+              handlePinned && handlePinned(note.id);
             }}
+            onHandleUnpinned={() => {
+              handleUnpinned && handleUnpinned(note.id);
+            }}
+            pinIcon={note.pin}
           />
         );
       })}
