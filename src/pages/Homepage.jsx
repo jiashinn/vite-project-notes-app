@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
 import { nanoid } from "nanoid";
-import HeaderSection from "../components/HeaderSection";
-import NoteForm from "../components/NoteForm";
-import NoteList from "../components/NoteList";
+import Header from "../components/Header/Header";
+
+import NoteList from "../components/NoteList/NoteList";
+import style from "./Homepage.module.css";
+import NoteForm from "../components/NoteForm/NoteForm";
+import { AnimatePresence } from "framer-motion";
+import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
+  let navigate = useNavigate();
+  const { user, setProtect } = useUserAuth();
+
   const [notes, setNotes] = useState(() => {
     const saved = JSON.parse(localStorage.getItem("notes-app-data"));
     return saved || [];
@@ -29,13 +37,20 @@ const Homepage = () => {
       timestamp: Date.now(),
       pin: false,
     };
+
     setNotes([...notes, newNote]);
+    console.log(user);
+    if (user === null) {
+      setTimeout(() => {
+        navigate("/login");
+        setProtect(true);
+      }, 100);
+    }
   };
 
   const handleDelete = (id) => {
     const newNotes = notes.filter((note) => note.id !== id);
     setNotes(newNotes);
-    localStorage.setItem("notes-app-data", JSON.stringify(notes));
   };
 
   const handlePinned = (id) => {
@@ -51,8 +66,7 @@ const Homepage = () => {
       note.id === id ? { ...note, pin: true } : note
     );
     console.log(finalNotes);
-    setNotes(finalNotes, "pin");
-    localStorage.setItem("notes-app-data", JSON.stringify(notes));
+    setNotes(finalNotes);
   };
 
   const handleUnpinned = (id) => {
@@ -65,37 +79,31 @@ const Homepage = () => {
       .sort((a, b) => a.timestamp - b.timestamp);
     const finalNotes = pinnedNotes.concat(unpinnedNotes);
     setNotes(finalNotes);
-    localStorage.setItem("notes-app-data", JSON.stringify(notes));
-    console.log(finalNotes, "unpin");
   };
 
   return (
-    <>
-      <HeaderSection onSearch={handleSearch} />
+    <div className={style.container}>
+      <Header onSearch={handleSearch} />
       {/* <NoteFormSection /> */}
       <NoteForm onCreate={addNotes} />
 
       {/* NoteListSection */}
-      {notes.length === 0 ? (
-        "No notes yet"
-      ) : searchValue === "" ? (
-        <NoteList
-          notes={notes}
-          handleDelete={handleDelete}
-          handlePinned={handlePinned}
-          handleUnpinned={handleUnpinned}
-        />
+      {user === null || notes.length === 0 ? (
+        <div className="dark:text-slate-300">No notes yet</div>
       ) : (
-        <NoteList
-          notes={notes.filter((note) =>
-            note.text.toLowerCase().includes(searchValue)
-          )}
-          handleDelete={handleDelete}
-          handlePinned={handlePinned}
-          handleUnpinned={handleUnpinned}
-        />
+        <AnimatePresence>
+          <NoteList
+            height={notes.textAreaHeight}
+            notes={notes.filter((note) =>
+              note.text.toLowerCase().includes(searchValue)
+            )}
+            handleDelete={handleDelete}
+            handlePinned={handlePinned}
+            handleUnpinned={handleUnpinned}
+          />
+        </AnimatePresence>
       )}
-    </>
+    </div>
   );
 };
 

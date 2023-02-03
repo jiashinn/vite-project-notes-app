@@ -1,12 +1,26 @@
-import { useState } from "react";
-import NoteCard from "./NoteCard";
+import NoteCard from "../NoteCard/NoteCard";
+import style from "./NoteList.module.css";
+import { motion } from "framer-motion";
 
-const NoteList = ({ notes, handleDelete, handlePinned, handleUnpinned }) => {
+const MotionNoteCard = motion(NoteCard);
+
+const NoteList = ({
+  notes,
+  height,
+  handleDelete,
+  handlePinned,
+  handleUnpinned,
+}) => {
   return (
-    <>
+    <div className={style.noteList}>
       {notes.map((note) => {
         return (
-          <NoteCard
+          <MotionNoteCard
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+            height={height}
             note={note}
             key={note.id}
             title={note.title}
@@ -25,7 +39,7 @@ const NoteList = ({ notes, handleDelete, handlePinned, handleUnpinned }) => {
           />
         );
       })}
-    </>
+    </div>
   );
 };
 

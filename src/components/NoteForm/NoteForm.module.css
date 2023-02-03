@@ -1,0 +1,12 @@
+.form {
+  @apply grid gap-4 mb-9 my-0 mx-auto max-w-3xl;
+}
+
+.input,
+.textarea {
+  @apply w-full bg-gray-50 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 border border-gray-300;
+}
+
+.textarea {
+  @apply resize-none overflow-hidden;
+}

@@ -1,0 +1,3 @@
+.noteList {
+  @apply grid grid-cols-fluid w-full justify-center justify-items-start gap-5 md:gap-3;
+}

@@ -1,7 +1,0 @@
-.header {
-  @apply w-full  flex justify-between items-center p-8 gap-5;
-}
-
-.dynamicText {
-  @apply text-2xl font-extrabold relative ml-3 whitespace-nowrap text-slate-500 before:border-l-lime-400 before:border-l-4 before:animate-typewriter before:absolute before:w-full before:h-full before:content-[''] before:bottom-0 before:left-0 before:bg-white;
-}

@@ -1,11 +1,9 @@
-/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    "./src/**/*.{js,jsx,ts,tsx}",
-    "node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}",
-  ],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: "class",
   theme: {
     extend: {
+      //typing animation//
       animation: {
         typewriter:
           "typewriter 2s steps(9) infinite, blink 0.5s steps(9) infinite",
@@ -25,7 +23,14 @@ module.exports = {
           },
         },
       },
+
+      //note-list-grid//
+      gridTemplateColumns: {
+        fluid: "repeat(auto-fit,300px)",
+      },
+      colors: {
+        transparent: "transparent",
+      },
     },
   },
-  plugins: [require("flowbite/plugin")],
 };
