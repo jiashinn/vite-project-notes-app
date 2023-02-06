@@ -2,19 +2,19 @@ import { useState } from "react";
 import Header from "../components/Header/Header";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
+import { useEffect } from "react";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn, googleSignIn } = useUserAuth();
+  const { logIn, googleSignIn, user } = useUserAuth();
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setError("");
       await logIn(email, password);
-      navigate("/");
     } catch (err) {
       const errorMsg = err.message
         .replace("Firebase:", "")
@@ -28,11 +28,16 @@ const Login = () => {
     e.preventDefault();
     try {
       await googleSignIn();
-      navigate("/");
     } catch (err) {
       console.log(err.message);
     }
   };
+
+  useEffect(() => {
+    if (user != null) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <div className=" max-w-7xl mx-auto min-h-screen w-full px-4 grid grid-rows-[0_auto]">
@@ -56,7 +61,7 @@ const Login = () => {
         </label>
         <input
           type="text"
-          className="py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
+          className="indent-2 py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -67,7 +72,7 @@ const Login = () => {
         </label>
         <input
           type="password"
-          className="py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
+          className="indent-2 py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
@@ -88,7 +93,7 @@ const Login = () => {
         </button>
         <button
           type="button"
-          className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 justify-center flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
+          className="w-full text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-4 justify-center flex items-center dark:focus:ring-[#4285F4]/55 mr-2 mb-2"
           onClick={handleGoogleSignIn}
         >
           <svg

@@ -7,8 +7,9 @@ import {
   onAuthStateChanged,
   signOut,
   GoogleAuthProvider,
-  signInWithPopup,
   inMemoryPersistence,
+  signInWithRedirect,
+  signInWithPopup,
 } from "firebase/auth";
 import { auth } from "../firebase";
 
@@ -33,7 +34,8 @@ export const UserAuthContextProvider = ({ children }) => {
   const googleSignIn = () => {
     setPersistence(auth, inMemoryPersistence);
     const googleAuthProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleAuthProvider);
+    return signInWithRedirect(auth, googleAuthProvider);
+    // return signInWithPopup(auth, googleAuthProvider);
   };
 
   useEffect(() => {

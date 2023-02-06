@@ -8,7 +8,6 @@ const Header = ({ onSearch }) => {
 
   const handleLogOut = async (e) => {
     e.preventDefault();
-    console.log(user);
     try {
       await logOut();
     } catch (err) {

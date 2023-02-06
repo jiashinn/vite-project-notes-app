@@ -48,7 +48,7 @@ const Register = () => {
         </label>
         <input
           type="text"
-          className="py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
+          className="indent-2 py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
@@ -59,7 +59,7 @@ const Register = () => {
         </label>
         <input
           type="password"
-          className="py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
+          className="indent-2 py-3 rounded-xl border border-slate-400 dark:bg-slate-400"
           onChange={(e) => {
             setPassword(e.target.value);
           }}

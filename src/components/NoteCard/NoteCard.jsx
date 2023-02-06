@@ -12,8 +12,7 @@ const NoteCard = forwardRef(
   ) => {
     const savedData = JSON.parse(localStorage.getItem("notes-app-data")) || [];
     const [editData, setEditData] = useState(note);
-    const [pinned, setPinned] = useState(false);
-    const [textAreaHeight, setTextAreaHeight] = useState(Number);
+    const [pinned, setPinned] = useState(note.pin);
     const { visible, setVisible, clickOutsideRef } = useOutsideAlerter(false);
 
     const handleChange = (event) => {
@@ -89,7 +88,7 @@ const NoteCard = forwardRef(
                 >
                   {pinned ? "Unpin" : "Pin"}
                 </a>
-
+                {/* 
                 <a
                   href="#"
                   className={`dark:text-gray-300 dark:hover:bg-gray-300 dark:hover:text-white ${style.dropdownLink}`}
@@ -98,7 +97,7 @@ const NoteCard = forwardRef(
                   }}
                 >
                   Add Color
-                </a>
+                </a> */}
 
                 <hr className="border-gray-200 dark:border-gray-700 " />
 

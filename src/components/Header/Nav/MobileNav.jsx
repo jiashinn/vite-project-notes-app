@@ -4,7 +4,6 @@ import { faUserPen, faBars } from "@fortawesome/free-solid-svg-icons";
 import SearchBar from "./SearchBar";
 import { Link } from "react-router-dom";
 import useOutsideAlerter from "../../useOutsideAlerter";
-import { useUserAuth } from "../../../context/UserAuthContext";
 
 const MobileNav = ({ onSearch, onLogOut, user }) => {
   const { visible, setVisible, clickOutsideRef } = useOutsideAlerter(false);
@@ -23,14 +22,15 @@ const MobileNav = ({ onSearch, onLogOut, user }) => {
             <ThemeToggleIcon mobile />
           </li>
           <li className="py-3 px-5  w-full">
-            <FontAwesomeIcon
-              icon={faUserPen}
-              fixedWidth
-              size="lg"
-              className="text-slate-600 dark:text-white"
-            />
             {user === null ? (
               <>
+                {" "}
+                <FontAwesomeIcon
+                  icon={faUserPen}
+                  fixedWidth
+                  size="lg"
+                  className="text-slate-600 dark:text-white"
+                />
                 <Link
                   to="/register"
                   className="mx-2 text-slate-600 dark:text-white"
@@ -47,7 +47,13 @@ const MobileNav = ({ onSearch, onLogOut, user }) => {
               </>
             ) : (
               <>
-                <span>{user.email}</span>
+                <FontAwesomeIcon
+                  icon={faUserPen}
+                  fixedWidth
+                  size="lg"
+                  className="text-slate-600 dark:text-white"
+                  title={user.email}
+                />
                 <Link
                   to="/"
                   className="mx-2 text-slate-600 dark:text-white"
@@ -67,7 +73,7 @@ const MobileNav = ({ onSearch, onLogOut, user }) => {
         size="lg"
         className="w-full text-slate-500"
         onClick={() => {
-          setVisible(true);
+          setVisible((prev) => !prev);
         }}
       />
     </nav>
