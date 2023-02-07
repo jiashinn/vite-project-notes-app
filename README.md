@@ -26,7 +26,7 @@ User registration is added after the project is almost completed to practice the
 Therefore, users using the same browser will share the note data on this v.1.
 The v.2 is ongoing and it will be modified.
 
-### Website
+### Deployment
 https://lucent-cobbler-d1171f.netlify.app/
 
 
