@@ -122,10 +122,7 @@ const NoteCard = forwardRef(
             value={editData.title}
             onChange={handleChange}
           />
-          {/* <textarea
-          className={`${style.textarea} dark:bg-transparent dark:border-0 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:text-white dark:resize-none`}
-         
-        /> */}
+
           <TextareaAutosize
             style={{ height: `${height}px` }}
             className={`${style.textarea} dark:bg-transparent dark:border-0 dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:text-white dark:resize-none`}
@@ -133,28 +130,6 @@ const NoteCard = forwardRef(
             value={editData.text}
             onChange={handleChange}
           />
-
-          {/* <Input
-          type="text"
-          className={style.editInput}
-          name="title"
-          value={editData.title}
-          onHandleChange={handleChange}
-        />
-
-        <Input
-          type="text"
-          className={style.editInput}
-          name="text"
-          value={editData.text}
-          onHandleChange={handleChange}
-        /> */}
-
-          {/* <div className="px-6 pt-4 pb-2">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-          {tag}
-        </span>
-      </div> */}
         </div>
       </>
     );

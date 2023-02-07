@@ -37,7 +37,7 @@ const MobileNav = ({ onSearch, onLogOut, user }) => {
                 >
                   Register
                 </Link>
-                <span className="text-slate-600dark:text-white">/</span>
+                <span className="text-slate-600 dark:text-white">/</span>
                 <Link
                   to="/login"
                   className="ml-2 text-slate-600 dark:text-white"

@@ -39,9 +39,10 @@ const Homepage = () => {
     };
 
     setNotes([...notes, newNote]);
-    console.log(user);
+
     if (user === null) {
       setTimeout(() => {
+        //to save data to local storage then redirect to login page
         navigate("/login");
         setProtect(true);
       }, 100);
