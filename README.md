@@ -24,9 +24,9 @@ A note app.
 https://lucent-cobbler-d1171f.netlify.app/
 
 ### What I learned
-The system was designed to allow user to create the first note and save to local storage then direct to login page if the user has not been logged in. Since the navigation proceed too fast till local storage unable to save the data, setTimeOut was used to delay the navigation.
+-The system was designed to allow user to create the first note and save to local storage then direct to login page if the user has not been logged in. Since the navigation proceed too fast till local storage unable to save the data, setTimeOut was used to delay the navigation.
 
-Using shared components can be really complicated passing the states around. So use useContext to share the state throughout the app.
+-Using shared components can be really complicated passing the states around. So use useContext to share the state throughout the app.
 
 
 
